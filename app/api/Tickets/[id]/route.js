@@ -29,7 +29,7 @@ export async function PUT(req, { params }) {
 export async function DELETE(req, { params }) {
   try {
     const { id } = params;
-
+console.log("trying to delete")
     await Ticket.findByIdAndDelete(id);
     return NextResponse.json({ message: "Ticket Deleted" }, { status: 200 });
   } catch (error) {
