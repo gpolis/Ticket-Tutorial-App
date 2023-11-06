@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic'
 
 const getTickets = async () => {
   try {
-    const res = await fetch(`${process.env.SERVICE_URL}/api/Tickets`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Tickets`, {
       cache: "no-store",
     });
 
