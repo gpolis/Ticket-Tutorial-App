@@ -40,6 +40,12 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          env:
+            - name: {{ .Values.mongodb.secretKey }} 
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mongodb.secretName }}
+                  key: {{ .Values.mongodb.secretKey }}  
           # livenessProbe:
           #   httpGet:
           #     path: /

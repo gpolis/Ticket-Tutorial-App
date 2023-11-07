@@ -96,3 +96,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+envVariables:
+  - name: NEXT_PUBLIC_API_URL
+    value: "http://ticket-api.com"

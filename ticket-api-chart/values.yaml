@@ -96,3 +96,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+mongodb:
+  secretName: mongodb-secret
+  secretKey: MONGODB_URI
