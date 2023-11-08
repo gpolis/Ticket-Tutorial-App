@@ -6,6 +6,25 @@
   - MongoDB
   - Mongoose 
 
+### Architecture
+![Architecture](docs/architecture.svg)
+
+#### Ticket App
+ - Purpose: The primary purpose of the application is to facilitate the management of application support issues or tickets. It serves as a centralized system for tracking and handling these issues. The application relies on a Ticket API as its backend service. This API handles various operations, including fetching ticket data, creating new tickets, and updating ticket statuses.
+ - Key Features:
+   - Display Current Tickets: The application displays a list of current tickets along with their status. Users can easily see the tickets that are open or in progress.
+   - Create New Tickets: Users can create new support tickets within the application. When creating a ticket, they can specify details such as the title, priority, and a description of the issue. 
+   - Update Ticket Status: Users can update the status of a ticket. The available status options typically include "not started," "started," "in progress," and "done." This helps in tracking the progress of issue resolution.
+
+
+#### Ticket API
+- Purpose: The Backend API of the ticket tracking application is a crucial component responsible for handling data and business logic. This API relies on a Cloud MongoDB database to store and manage ticket-related data efficiently.
+- Key Features:
+    - Data Storage: The API stores all the ticket-related data, including ticket details, status, priority, and any other relevant information. This data is crucial for tracking and managing support tickets. 
+    - Create Tickets: It provides endpoints for creating new support tickets. When a user submits a new ticket through the front-end interface, the API stores this ticket in the database. 
+    - Update Ticket Status: The API allows users to update the status of a ticket, such as marking it as "not started," "started," "in progress," or "done." These status changes are also stored in the database. 
+    - Retrieve Ticket Information: Users can request information about existing tickets, and the API fetches the relevant data from the database to display in the front-end application.
+
 ### Prerequisites:
  - [Docker](https://docs.docker.com/engine/install/) or [Docker alternative - Colima](https://github.com/abiosoft/colima)
  - [Minikube](https://minikube.sigs.k8s.io/docs/start/)
