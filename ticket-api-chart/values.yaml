@@ -8,7 +8,7 @@ image:
   repository: guru1718/ticket-tutorial-app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v4.0"
+  tag: "v5.0"
 
 imagePullSecrets: []
 nameOverride: ""

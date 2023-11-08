@@ -1,29 +1,35 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const EditTicketForm = ({ ticket }) => {
   const EDITMODE = ticket._id === "new" ? false : true;
   const router = useRouter();
-  const startingTicketData = {
+  const [formData, setFormData] = useState({
     title: "",
     description: "",
     priority: 1,
     progress: 0,
     status: "not started",
     category: "Hardware Problem",
-  };
+  });
 
-  if (EDITMODE) {
-    startingTicketData["title"] = ticket.title;
-    startingTicketData["description"] = ticket.description;
-    startingTicketData["priority"] = ticket.priority;
-    startingTicketData["progress"] = ticket.progress;
-    startingTicketData["status"] = ticket.status;
-    startingTicketData["category"] = ticket.category;
-  }
+  //const [formData, setFormData] = useState(startingTicketData);
 
-  const [formData, setFormData] = useState(startingTicketData);
+  useEffect(() => {
+    const EDITMODE = ticket._id === "new" ? false : true;
+    if (EDITMODE) {
+      setFormData({
+        title: ticket.title,
+        description: ticket.description,
+        priority: ticket.priority,
+        progress: ticket.progress,
+        status: ticket.status,
+        category: ticket.category,
+      })
+    }
+    
+  }, [ticket]);
 
   const handleChange = (e) => {
     const value = e.target.value;

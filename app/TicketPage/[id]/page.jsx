@@ -1,3 +1,6 @@
+"use client"
+
+import React, { useState, useEffect } from 'react';
 import EditTicketForm from "@/app/(components)/EditTicketForm";
 
 const getTicketById = async (id) => {
@@ -7,7 +10,7 @@ const getTicketById = async (id) => {
     });
 
     if (!res.ok) {
-      throw new Error("Failed to fetch topic");
+      throw new Error("Failed to fetch ticket");
     }
 
     return res.json();
@@ -16,18 +19,27 @@ const getTicketById = async (id) => {
   }
 };
 
-let updateTicketData = {};
-const TicketPage = async ({ params }) => {
-  const EDITMODE = params.id === "new" ? false : true;
+const TicketPage = ({ params }) => {
+  const [updateTicketData, setUpdateTicketData] = useState({
+    _id: "new",
+  });
 
-  if (EDITMODE) {
-    updateTicketData = await getTicketById(params.id);
-    updateTicketData = updateTicketData.foundTicket;
-  } else {
-    updateTicketData = {
-      _id: "new",
-    };
-  }
+  useEffect(() => {
+    const fetchData = async (id) => {
+      const EDITMODE = id === "new" ? false : true;
+
+      if (EDITMODE) {
+        try {
+          const ticketData = await getTicketById(params.id);
+          setUpdateTicketData(ticketData.foundTicket); // Use `ticketData` directly as `foundTicket` may not be necessary
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+
+    fetchData(params.id);
+  }, [params]);
 
   return <EditTicketForm ticket={updateTicketData} />;
 };

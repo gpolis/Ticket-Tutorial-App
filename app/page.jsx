@@ -1,6 +1,6 @@
-import React from "react";
-import TicketCard from "./(components)/TicketCard";
-export const dynamic = 'force-dynamic'
+"use client"
+import React, { useState, useEffect } from 'react';
+import TicketCard from "@/app/(components)/TicketCard";
 
 const getTickets = async () => {
   try {
@@ -18,36 +18,40 @@ const getTickets = async () => {
   }
 };
 
-const Dashboard = async () => {
-  const data = await getTickets();
+const Dashboard = () => {
+  const [ticketsData, setTicketsData] = useState([]);
+  const [uniqueCategories, setUniqueCategories] = useState([]);
 
-  // Make sure we have tickets needed for production build.
-  if (!data?.tickets) {
-    return <p>No tickets.</p>;
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getTickets();
 
-  const tickets = data.tickets;
+        if (data?.tickets) {
+          setTicketsData(data.tickets);
+          const categories = [...new Set(data.tickets.map(({ category }) => category))];
+          setUniqueCategories(categories);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  const uniqueCategories = [
-    ...new Set(tickets?.map(({ category }) => category)),
-  ];
+    fetchData();
+  }, []);
 
   return (
     <div className="p-5">
       <div>
-        {tickets &&
-          uniqueCategories?.map((uniqueCategory, categoryIndex) => (
+        {ticketsData &&
+          uniqueCategories.map((uniqueCategory, categoryIndex) => (
             <div key={categoryIndex} className="mb-4">
               <h2>{uniqueCategory}</h2>
-              <div className="lg:grid grid-cols-2 xl:grid-cols-4 ">
-                {tickets
+              <div className="lg:grid grid-cols-2 xl:grid-cols-4">
+                {ticketsData
                   .filter((ticket) => ticket.category === uniqueCategory)
                   .map((filteredTicket, _index) => (
-                    <TicketCard
-                      id={_index}
-                      key={_index}
-                      ticket={filteredTicket}
-                    />
+                    <TicketCard id={_index} key={_index} ticket={filteredTicket} />
                   ))}
               </div>
             </div>
