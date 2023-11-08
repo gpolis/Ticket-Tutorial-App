@@ -1,4 +1,4 @@
-# NextJS 13.4 Ticket tutorial App!
+# Ticket Tracking App!
 - A Simple CRUD app using 13.4 app router
 - Tech Stack
   - Tailwind CSS
